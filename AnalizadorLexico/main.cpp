@@ -46,15 +46,16 @@ int main(void) {
 	TablaSimbolos ts;
 
 	// -- Abrimos el archivo para lectura
-	ifstream fuente("C:/test/test_pascal.txt");
+	ifstream fuente("C:/test/test.txt");
 
 	while(!fuente.eof()){
 		if (ObtenerSiguienteComplex(fuente, control, complex, lexema, ts)) {
 			cout << "Control			= " << control << endl;
 			cout << "Lexema			= " << lexema << endl;
 			cout << setw(24) << left << "TipoComplex " << "= "+ComplexAString(complex) << endl;
-			//cout << setw(25) << left << "<"+ComplexAString(complex)+">" << lexema << endl;
 			cout << endl;
+
+			//cout << setw(25) << left << "<"+ComplexAString(complex)+">" << lexema << endl;
 		}
 	}
 
