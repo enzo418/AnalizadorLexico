@@ -44,9 +44,9 @@ int main(void) {
 	ComponenteLexico complex;	
 
 	TablaSimbolos ts;
-
+	
 	// -- Abrimos el archivo para lectura
-	ifstream fuente("C:/test/test.txt");
+	ifstream fuente("./input.txt");
 
 	while(!fuente.eof()){
 		if (ObtenerSiguienteComplex(fuente, control, complex, lexema, ts)) {

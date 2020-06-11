@@ -3,6 +3,7 @@
 #include <fstream>
 #include "tipos.h"
 #include <vector>
+#include <map>
 
 template <typename F>
 bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema,

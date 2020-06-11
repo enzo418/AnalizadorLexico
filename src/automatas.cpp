@@ -4,6 +4,7 @@
 #include <map>
 #include "tipos.h"
 #include "automatas.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -54,7 +55,7 @@ bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema
 	if (fuente.eof()) fuente.clear();
 
 	// -- La cadena obtenida es valida si el ultimo estado que fue valido antes de que fallara es estado final
-	if (find(std::begin(finales), std::end(finales), ultimoEstado) != std::end(finales)) {
+	if (std::find(std::begin(finales), std::end(finales), ultimoEstado) != std::end(finales)) {
 		control += lexema.size();
 		fuente.seekg(control); // Cambiamos la posicion del cursor a la anterior a la actual (la que fallo el automata)
 		esValida = true;
