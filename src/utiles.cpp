@@ -1,9 +1,7 @@
 #include <iostream>
 #include "tipos.h"
 
-using namespace std;
-
-void AgregarEnTablaSimbolos(string& lexema, ComponenteLexico& complex, TablaSimbolos& ts) {
+void AgregarEnTablaSimbolos(std::string& lexema, ComponenteLexico& complex, TablaSimbolos& ts) {
 	ElementoTabla el;
 	el.complex = complex;
 	el.lexema = lexema;
@@ -11,8 +9,8 @@ void AgregarEnTablaSimbolos(string& lexema, ComponenteLexico& complex, TablaSimb
 	ts.push_back(el);
 }
 
-string ComplexAString(ComponenteLexico& complex) {
-	string out = "";
+std::string ComplexAString(ComponenteLexico& complex) {
+	std::string out = "";
 	switch (complex) {
 		case ComponenteLexico::Identificador:
 			out = "Identificador";

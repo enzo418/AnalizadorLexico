@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <map>
+#include <vector> 		// std::vector
+#include <map> 			// std::map
+#include <algorithm> 	// std::find
 #include "tipos.h"
 #include "automatas.h"
-#include <algorithm>
 
-using namespace std;
+#define ExisteEn(vector,encontrar) std::find(std::begin(vector), std::end(vector), encontrar) != std::end(vector)
 
 /// <summary>Template Automata verifica si a continuacion de control existe una cadena que pertenezca al componente lexico (automata) dado.
 /// </summary>
@@ -21,7 +21,7 @@ using namespace std;
 /// <returns>Devuelve un boolean dependiendo si se encontro el token buscado.</returns>
 template <typename F>
 bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema, 
-					  F CarASimbolo, std::map<tuple<ushort, int>, ushort> delta, std::vector<ushort> finales,
+					  F CarASimbolo, Delta delta, std::vector<ushort> finales,
 					  ushort estadoInicial, ushort estadoMuerto) {
 
 	ushort q0 = estadoInicial;
@@ -38,7 +38,7 @@ bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema
 	fuente.get(c);
 
 	// -- Verificamos que el estado en el cual estamos no sea invalido y no sea el fin del archivo
-	while (estadoMuerto != estadoActual && !fuente.eof()) {
+	while (estadoActual != estadoMuerto && !fuente.eof()) {
 		int simb = CarASimbolo(c);
 		estadoActual = delta[{estadoActual, simb}];
 
@@ -55,7 +55,7 @@ bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema
 	if (fuente.eof()) fuente.clear();
 
 	// -- La cadena obtenida es valida si el ultimo estado que fue valido antes de que fallara es estado final
-	if (std::find(std::begin(finales), std::end(finales), ultimoEstado) != std::end(finales)) {
+	if (ExisteEn(finales, ultimoEstado)) {
 		control += lexema.size();
 		fuente.seekg(control); // Cambiamos la posicion del cursor a la anterior a la actual (la que fallo el automata)
 		esValida = true;
@@ -66,9 +66,9 @@ bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema
 	return esValida;
 }
 
-bool EsIdentificador(ifstream& fuente, ulong& control, string& lexema) {
+bool EsIdentificador(std::ifstream& fuente, ulong& control, std::string& lexema) {
 	// -- Definimos el alfabeto de entrada
-	typedef enum Sigma { Letra, Digito, Especial, Otro };
+	enum Sigma { Letra, Digito, Especial, Otro };
 
 	auto CarASimbolo = [](auto& c) -> Sigma {
 		Sigma t = Otro;
@@ -86,7 +86,7 @@ bool EsIdentificador(ifstream& fuente, ulong& control, string& lexema) {
 		return t;
 	};
 		
-	std::map<tuple<ushort, int>, ushort> delta = {
+	Delta delta = {
 		//		 q	 x	simbolo	 ->	q
 			{	{0,		Letra	},	1},
 			{	{0,		Digito	},	2},
@@ -116,7 +116,7 @@ bool EsIdentificador(ifstream& fuente, ulong& control, string& lexema) {
 
 bool EsConstanteReal(std::ifstream& fuente, ulong& control, std::string& lexema) {
 	// -- Definimos el alfabeto de entrada, especial = _
-	typedef enum Sigma {
+	enum Sigma {
 		Digito, Signo, Punto, Exponente, Otro
 	};
 
@@ -136,7 +136,7 @@ bool EsConstanteReal(std::ifstream& fuente, ulong& control, std::string& lexema)
 		return t;
 	};
 
-	std::map<tuple<ushort, int>, ushort> delta = {
+	Delta delta = {
 		//		 q	 x	simbolo		->	q
 			{	{0,		Exponente	},	7},
 			{	{0,		Digito		},	2},
@@ -204,7 +204,7 @@ bool EsConstanteReal(std::ifstream& fuente, ulong& control, std::string& lexema)
 
 bool EsConstanteEntera(std::ifstream& fuente, ulong& control, std::string& lexema) {
 	// -- Definimos el alfabeto de entrada, especial = _
-	typedef enum Sigma {
+	enum Sigma {
 		Digito, Signo, Otro
 	};
 
@@ -220,7 +220,7 @@ bool EsConstanteEntera(std::ifstream& fuente, ulong& control, std::string& lexem
 		return t;
 	};
 
-	std::map<tuple<ushort, int>, ushort> delta = {
+	Delta delta = {
 		//		 q	 x	simbolo	 ->	q
 			{	{0,		Signo	},	1},
 			{	{0,		Digito	},	2},

@@ -7,12 +7,10 @@
 #include "utiles.h"
 #include <iomanip>
 
-using namespace std;
-
 // ============= Funciones
 
-bool ObtenerSiguienteComplex(ifstream& fuente, ulong& control,
-	ComponenteLexico& complex, string& lexema, TablaSimbolos& ts) {
+bool ObtenerSiguienteComplex(std::ifstream& fuente, ulong& control,
+	ComponenteLexico& complex, std::string& lexema, TablaSimbolos& ts) {
 
 	// -- Quitar los caracteres no necesarios	
 	while (fuente.peek() <= 32 && !fuente.eof()) {
@@ -40,20 +38,22 @@ bool ObtenerSiguienteComplex(ifstream& fuente, ulong& control,
 
 int main(void) {
 	ulong control = 0;
-	string lexema;
+	std::string lexema;
 	ComponenteLexico complex;	
 
 	TablaSimbolos ts;
 	
 	// -- Abrimos el archivo para lectura
-	ifstream fuente("./input.txt");
+	std::ifstream fuente("/input.txt");
+
+	if(!fuente.good()){ std::cout << "El archivo no existe"; return 1; }
 
 	while(!fuente.eof()){
 		if (ObtenerSiguienteComplex(fuente, control, complex, lexema, ts)) {
-			cout << "Control			= " << control << endl;
-			cout << "Lexema			= " << lexema << endl;
-			cout << setw(24) << left << "TipoComplex " << "= "+ComplexAString(complex) << endl;
-			cout << endl;
+			std::cout << "Control			= " << control << std::endl;
+			std::cout << "Lexema			= " << lexema << std::endl;
+			std::cout << std::setw(24) << std::left << "TipoComplex " << "= "+ComplexAString(complex) << std::endl;
+			std::cout << std::endl;
 
 			//cout << setw(25) << left << "<"+ComplexAString(complex)+">" << lexema << endl;
 		}

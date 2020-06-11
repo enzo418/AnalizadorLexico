@@ -7,7 +7,7 @@
 
 template <typename F>
 bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema,
-					  F CarASimbolo, std::map<std::tuple<ushort, int>, ushort> delta, 
+					  F CarASimbolo, Delta delta, 
 					  std::vector<ushort> finales, ushort estadoInicial, ushort estadoMuerto);
 
 bool EsIdentificador(std::ifstream& fuente, ulong& control, std::string& lexema);
