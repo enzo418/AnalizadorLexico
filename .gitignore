@@ -353,3 +353,4 @@ AnalizadorLexico.workspace
 .codelite/AnalizadorLexico.session
 .codelite/AnalizadorLexico.workspace.enzo
 .codelite/valgrind.memcheck.supp
+out/*
