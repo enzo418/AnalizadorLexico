@@ -17,7 +17,7 @@ bool ObtenerSiguienteComplex(std::ifstream& fuente, ulong& control,
 		fuente.get();
 		control++;
 	}
-
+	 
 	if (fuente.eof()) return false; // Se termino el archivo... volver.
 
 	control = fuente.tellg();
@@ -43,11 +43,18 @@ int main(void) {
 
 	TablaSimbolos ts;
 	
-	// -- Abrimos el archivo para lectura
+	// -- Abrimos el archivo para lectura (Windows)
 	std::ifstream fuente("/input.txt");
+	
+	if(!fuente.good()){ // si no se pudo abrir
+		fuente.open("input.txt"); // intentamos abrirlo sin / (Linux)
+		if(!fuente.good()){
+			std::cout << "El archivo no existe" << std::endl; 
+			return 1; 
+		}
+	}
 
-	if(!fuente.good()){ std::cout << "El archivo no existe"; return 1; }
-
+	// mientras no sea el fin del archivo
 	while(!fuente.eof()){
 		if (ObtenerSiguienteComplex(fuente, control, complex, lexema, ts)) {
 			std::cout << "Control			= " << control << std::endl;

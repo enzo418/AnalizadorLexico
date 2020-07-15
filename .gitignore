@@ -347,3 +347,9 @@ CMakeLists.txt~
 Makefile
 cmake_install.cmake
 .vscode/*
+AnalizadorLexico.project
+AnalizadorLexico.workspace
+.codelite/AnalizadorLexico-enzo.tags
+.codelite/AnalizadorLexico.session
+.codelite/AnalizadorLexico.workspace.enzo
+.codelite/valgrind.memcheck.supp

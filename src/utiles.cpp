@@ -6,7 +6,7 @@ void AgregarEnTablaSimbolos(std::string& lexema, ComponenteLexico& complex, Tabl
 	el.complex = complex;
 	el.lexema = lexema;
 
-	ts.push_back(el);
+	ts.push_back(el); // [1, 2, 3] => [1, 2, 3, 4]
 }
 
 std::string ComplexAString(ComponenteLexico& complex) {

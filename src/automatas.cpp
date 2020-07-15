@@ -1,5 +1,5 @@
-#include <iostream>
-#include <fstream>
+#include <iostream>		// para std -> std::cout << "hola " << numero
+#include <fstream>		// para archivos
 #include <vector> 		// std::vector
 #include <map> 			// std::map
 #include <algorithm> 	// std::find
@@ -42,9 +42,9 @@ bool TemplateAutomata(std::ifstream& fuente, ulong& control, std::string& lexema
 		int simb = CarASimbolo(c);
 		estadoActual = delta[{estadoActual, simb}];
 
-		// -- Si no esta en un estado muerto el caracter el valido, por lo que lo agregamos
+		// -- Si no esta en un estado muerto el caracter es valido, por lo que lo agregamos
 		if (estadoActual != estadoMuerto) {
-			lexema += c;
+			lexema += c; 
 			ultimoEstado = estadoActual;
 		}
 
