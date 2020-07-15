@@ -43,11 +43,11 @@ int main(void) {
 
 	TablaSimbolos ts;
 	
-	// -- Abrimos el archivo para lectura (Windows)
+	// -- Abrimos el archivo para lectura (Linux)
 	std::ifstream fuente("/input.txt");
 	
 	if(!fuente.good()){ // si no se pudo abrir
-		fuente.open("input.txt"); // intentamos abrirlo sin / (Linux)
+		fuente.open("input.txt"); // intentamos abrirlo sin / (Windows)
 		if(!fuente.good()){
 			std::cout << "El archivo no existe" << std::endl; 
 			return 1; 
